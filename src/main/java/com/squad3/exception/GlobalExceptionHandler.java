@@ -8,12 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import com.squad3.response.ResponseStructure;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -29,19 +26,4 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 	}
 
-	@ExceptionHandler(value = InvalidEmployeeException.class)
-	public ResponseEntity<Object> invalidEmployeeException(InvalidEmployeeException ex, WebRequest req) {
-
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body(new ResponseStructure(ex.getMessage(), HttpStatus.BAD_REQUEST));
-
-	}
-
-	@ExceptionHandler(value = NullPointerException.class)
-	public ResponseEntity<Object> nullPointerException(NullPointerException ex, WebRequest req) {
-
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body(new ResponseStructure("Invalid employee", HttpStatus.NOT_FOUND));
-
-	}
 }
