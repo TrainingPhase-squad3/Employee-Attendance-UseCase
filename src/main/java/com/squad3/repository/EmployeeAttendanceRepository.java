@@ -13,5 +13,8 @@ import com.squad3.entity.EmployeeAttendance;
 public interface EmployeeAttendanceRepository  {
 
 	
+EmployeeAttendance findByEmployee_EmployeeIdAndDate(long id, LocalDate date);
+List<EmployeeAttendance> findByEmployee_EmployeeIdAndDateBetween(long empId,LocalDate fromDate, LocalDate toDate);
+
 
 }
