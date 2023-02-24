@@ -28,7 +28,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		});
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 	}
-
+	
 	@ExceptionHandler(value = InvalidEmployeeException.class)
 	public ResponseEntity<Object> invalidEmployeeException(InvalidEmployeeException ex, WebRequest req) {
 
@@ -44,4 +44,5 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 				.body(new ResponseStructure("Invalid employee", HttpStatus.NOT_FOUND));
 
 	}
+
 }

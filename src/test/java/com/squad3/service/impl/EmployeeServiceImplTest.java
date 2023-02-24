@@ -170,5 +170,4 @@ class EmployeeServiceImplTest {
 		assertThrows(InvalidEmployeeException.class, () -> employeeServiceImpl.adminLogOut(email));
 	}
 
-	
 }
