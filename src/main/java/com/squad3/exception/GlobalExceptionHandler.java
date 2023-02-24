@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.squad3.response.ResponseStructure;
+import com.squad3.response.ApiResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -28,6 +28,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		});
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 	}
+
 	
 	@ExceptionHandler(value = InvalidEmployeeException.class)
 	public ResponseEntity<Object> invalidEmployeeException(InvalidEmployeeException ex, WebRequest req) {
@@ -42,6 +43,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND)
 				.body(new ResponseStructure("Invalid employee", HttpStatus.NOT_FOUND));
+}
+	@ExceptionHandler(EmployeeNotFoundException.class)
+	public ResponseEntity<ApiResponse> handleResourceNotFoundException(EmployeeNotFoundException exception) {
+	
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(exception.getMessage(),HttpStatus.NOT_FOUND));		
 
 	}
 
