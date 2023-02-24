@@ -29,39 +29,5 @@ public class EmployeeServiceImpl implements EmployeeService {
 				.email(employeedto.getEmail()).build());
 		return new Response("Employee Registered successfully");
 	}
-	@Override
-	public List<SwipingResponse> employeeAttendenceHistory(long adminId, long empId, String fromDate, String toDate) {
-		Employee employee = employeeRepository.findById(adminId)
-				.orElseThrow(() -> new EmployeeNotFoundException("Admin:" + adminId + " not found"));
-		if (employee.getRole().equals("Admin")) {
-			logger.info("Employee is Admin");
-			if (employee.isStatus()) {
-				logger.info("Admin logged in");
-				Employee employee1 = employeeRepository.findById(empId)
-						.orElseThrow(() -> new EmployeeNotFoundException("Employee:" + empId + " not found"));
-
-				List<EmployeeAttendance> list = employeeAttendanceRepository.findByEmployee_EmployeeIdAndDateBetween(
-						employee1.getEmployeeId(), LocalDate.parse(fromDate, DateTimeFormatter.ofPattern("dd-MM-yyyy")),
-						LocalDate.parse(toDate, DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-				if (list.isEmpty()) {
-					logger.warn("empty list due to no attendance history for employee");
-					throw new NotImplementedException("No swiping history in the specified dates");
-
-				} else {
-					return list.stream().map(history -> {
-						return new SwipingResponse(history.getDate(), history.getSwipeInTime(),
-								history.getSwipeOutTime());
-					}).toList();
-				}
-
-			} else {
-				logger.error("Admin not logged in");
-				throw new NotImplementedException("Not logged in");
-			}
-
-		} else {
-			logger.error("unauthorized employee");
-			throw new AccessDeniedException("Unauthorized access");
-
-		}
+	
 }
