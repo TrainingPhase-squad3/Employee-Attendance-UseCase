@@ -26,6 +26,6 @@ public class EmployeeController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(employee.getMessage());
 	}
 
-	
+
 
 }

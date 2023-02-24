@@ -21,6 +21,7 @@ import com.squad3.service.EmployeeAttendanceService;
 
 @Service
 public class EmployeeAttendanceServiceImpl implements EmployeeAttendanceService {
+
 	@Autowired
 	EmployeeRepository employeeRepository;
 
@@ -28,6 +29,7 @@ public class EmployeeAttendanceServiceImpl implements EmployeeAttendanceService 
 	EmployeeAttendanceRepository employeeAttendanceRepository;
 
 	Logger logger = LoggerFactory.getLogger(EmployeeAttendanceServiceImpl.class);
+
 
 	
 
