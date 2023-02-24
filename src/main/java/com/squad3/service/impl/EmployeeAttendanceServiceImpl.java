@@ -29,25 +29,7 @@ public class EmployeeAttendanceServiceImpl implements EmployeeAttendanceService 
 
 	Logger logger = LoggerFactory.getLogger(EmployeeAttendanceServiceImpl.class);
 
-	@Override
-	public EmployeeAttendance swipping(long employeeId) {
-		Employee employee = employeeRepository.findById(employeeId)
-				.orElseThrow(() -> new EmployeeNotFoundException("Employee with Id: " + employeeId + " not found"));
-		EmployeeAttendance employeeAttendance = employeeAttendanceRepository
-				.findByEmployee_EmployeeIdAndDate(employeeId, LocalDate.now());
-		if (employeeAttendance == null) {
-			EmployeeAttendance attendance = new EmployeeAttendance();
-			attendance.setSwipeInTime(LocalTime.now());
-			attendance.setDate(LocalDate.now());
-			attendance.setEmployee(employee);
-			logger.info("Employee Swipped In");
-			return employeeAttendanceRepository.save(attendance);
-
-		}
-		logger.info("Employee Swipped Out");
-		employeeAttendance.setSwipeOutTime(LocalTime.now());
-		return employeeAttendanceRepository.save(employeeAttendance);
-    }
+	
 
 
 
