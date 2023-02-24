@@ -1,7 +1,11 @@
 package com.squad3.service;
 
-import com.squad3.entity.EmployeeAttendance;
+
+import java.util.List;
+
+import com.squad3.response.SwipingResponse;
 
 public interface EmployeeAttendanceService {
+
 	
 }

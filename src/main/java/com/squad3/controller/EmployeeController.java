@@ -16,8 +16,15 @@ import com.squad3.service.EmployeeAttendanceService;
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
-	
+	@Autowired
+	private EmployeeAttendanceService employeeAttendanceService;
 
-	
+	@PostMapping
+	public ResponseEntity<String> saveEmployee(@Valid @RequestBody EmployeeDto employeedto) {
+		Response employee = employeeService.save(employeedto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(employee.getMessage());
+	}
+
+
 
 }
