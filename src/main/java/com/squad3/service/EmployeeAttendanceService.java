@@ -6,6 +6,6 @@ import java.util.List;
 import com.squad3.response.SwipingResponse;
 
 public interface EmployeeAttendanceService {
-
+	EmployeeAttendance swipping(long employeeId);
 	
 }
