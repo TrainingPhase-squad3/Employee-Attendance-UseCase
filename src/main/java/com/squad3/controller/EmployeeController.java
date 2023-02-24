@@ -16,6 +16,7 @@ import com.squad3.service.EmployeeAttendanceService;
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
+
 	@Autowired
 	private EmployeeAttendanceService employeeAttendanceService;
 
