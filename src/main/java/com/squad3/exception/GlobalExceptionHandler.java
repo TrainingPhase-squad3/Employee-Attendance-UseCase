@@ -31,33 +31,27 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 
-	@ExceptionHandler(EmployeeNotFoundException.class)
-	public ResponseEntity<ApiResponse> handleResourceNotFoundException(EmployeeNotFoundException exception) {
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body(new ApiResponse(exception.getMessage(), HttpStatus.NOT_FOUND));
-
-	}
 	
-	@ExceptionHandler(NotImplementedException.class)
-	public ResponseEntity<ApiResponse> handleAttendenceNotFoundException(NotImplementedException exception) {
+	@ExceptionHandler(EmployeeAlreadyExists.class)
+	public ResponseEntity<ApiResponse> handleResourceNotFoundException(EmployeeAlreadyExists exception) {
+	
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(exception.getMessage(),HttpStatus.NOT_FOUND));		
+
+
+	}
+	@ExceptionHandler(value = InvalidEmployeeException.class)
+	public ResponseEntity<Object> invalidEmployeeException(InvalidEmployeeException ex, WebRequest req) {
+
 		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body(new ApiResponse(exception.getMessage(), HttpStatus.NOT_IMPLEMENTED));
+				.body(new ResponseStructure(ex.getMessage(), HttpStatus.BAD_REQUEST));
 
 	}
 
-	@ExceptionHandler(AccessDeniedException.class)
-	public ResponseEntity<ApiResponse> handleAccessDeniedException(AccessDeniedException exception) {
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-				.body(new ApiResponse(exception.getMessage(), HttpStatus.UNAUTHORIZED));
+	@ExceptionHandler(value = NullPointerException.class)
+	public ResponseEntity<Object> nullPointerException(NullPointerException ex, WebRequest req) {
 
-	}
-
-	@ExceptionHandler(DateTimeParseException.class)
-	public ResponseEntity<ApiResponse> handleDateTimeParseException(DateTimeParseException exception) {
-		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(
-				new ApiResponse("Text could not be parsed provide in format:dd-MM-yyyy", HttpStatus.NOT_ACCEPTABLE));
 		return ResponseEntity.status(HttpStatus.NOT_FOUND)
 				.body(new ResponseStructure("Invalid employee", HttpStatus.NOT_FOUND));
 }
-	
+
 }
