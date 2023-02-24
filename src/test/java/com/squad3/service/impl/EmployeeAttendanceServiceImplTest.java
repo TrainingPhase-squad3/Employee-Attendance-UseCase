@@ -28,3 +28,4 @@ import com.squad3.repository.EmployeeRepository;
 @ExtendWith(SpringExtension.class)
 class EmployeeAttendanceServiceImplTest {
 }
+
