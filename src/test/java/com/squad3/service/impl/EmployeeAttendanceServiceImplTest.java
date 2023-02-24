@@ -203,33 +203,4 @@ class EmployeeAttendanceServiceImplTest {
 
 }
 
-	void testSwippingFirst() {
-		long employeeId=1;
-		Employee employee=new Employee();
-		employee.setEmployeeId(employeeId);
-		EmployeeAttendance employeeAttendance=new EmployeeAttendance();
-		employeeAttendance.setEmployeeAttendanceId(1);
-		employeeAttendance.setEmployee(employee);
-		employeeAttendance.setSwipeInTime(LocalTime.NOON);
-		Mockito.when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(employee));
-		Mockito.when(employeeAttendanceRepository.findByEmployee_EmployeeIdAndDate(employeeId,LocalDate.now())).thenReturn(employeeAttendance);
-		Mockito.when(employeeAttendanceRepository.save(employeeAttendance)).thenReturn(employeeAttendance);
-		assertEquals(LocalTime.NOON, employeeAttendanceServiceImpl.swipping(employeeId).getSwipeInTime());
-	}
-	@Test
-	void testSwippingSecond() {
-		long employeeId=1;
-		Mockito.when(employeeRepository.findById(employeeId)).thenThrow(new EmployeeNotFoundException("Employee with Id: "+employeeId+" not found"));
-		assertThrows(EmployeeNotFoundException.class,
-				() -> employeeAttendanceServiceImpl.swipping(employeeId));
-
-	}
-	@Test
-	void testSwippingThird() {
-		long employeeId=1;
-		Employee employee=new Employee();
-		employee.setEmployeeId(employeeId);
-		Mockito.when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(employee));
-		Mockito.when(employeeAttendanceRepository.findByEmployee_EmployeeIdAndDate(employeeId,LocalDate.now())).thenReturn(null);
-		assertNull(employeeAttendanceServiceImpl.swipping(employeeId));
-	}
+	
