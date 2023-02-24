@@ -31,36 +31,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 
-	@ExceptionHandler(EmployeeNotFoundException.class)
-	public ResponseEntity<ApiResponse> handleResourceNotFoundException(EmployeeNotFoundException exception) {
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body(new ApiResponse(exception.getMessage(), HttpStatus.NOT_FOUND));
-
-	}
 	
-	@ExceptionHandler(NotImplementedException.class)
-	public ResponseEntity<ApiResponse> handleAttendenceNotFoundException(NotImplementedException exception) {
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body(new ApiResponse(exception.getMessage(), HttpStatus.NOT_IMPLEMENTED));
-
-	}
-
-	@ExceptionHandler(AccessDeniedException.class)
-	public ResponseEntity<ApiResponse> handleAccessDeniedException(AccessDeniedException exception) {
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-				.body(new ApiResponse(exception.getMessage(), HttpStatus.UNAUTHORIZED));
-
-	}
-
-	@ExceptionHandler(DateTimeParseException.class)
-	public ResponseEntity<ApiResponse> handleDateTimeParseException(DateTimeParseException exception) {
-		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(
-				new ApiResponse("Text could not be parsed provide in format:dd-MM-yyyy", HttpStatus.NOT_ACCEPTABLE));
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body(new ResponseStructure("Invalid employee", HttpStatus.NOT_FOUND));
-}
-	@ExceptionHandler(EmployeeNotFoundException.class)
-	public ResponseEntity<ApiResponse> handleResourceNotFoundException(EmployeeNotFoundException exception) {
+	@ExceptionHandler(EmployeeAlreadyExists.class)
+	public ResponseEntity<ApiResponse> handleResourceNotFoundException(EmployeeAlreadyExists exception) {
 	
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(exception.getMessage(),HttpStatus.NOT_FOUND));		
 

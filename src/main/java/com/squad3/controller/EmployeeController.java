@@ -18,11 +18,11 @@ import com.squad3.service.EmployeeAttendanceService;
 public class EmployeeController {
 	@Autowired
 	private EmployeeAttendanceService employeeAttendanceService;
-	
 
-	@PostMapping("/employee-attendance")
-	public ResponseEntity<EmployeeAttendance> swipping(@Valid @RequestParam long employeeId) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(employeeAttendanceService.swipping(employeeId));
+	@PostMapping
+	public ResponseEntity<String> saveEmployee(@Valid @RequestBody EmployeeDto employeedto) {
+		Response employee = employeeService.save(employeedto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(employee.getMessage());
 	}
 
 	
