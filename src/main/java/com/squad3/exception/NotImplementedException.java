@@ -1,5 +1,4 @@
 package com.squad3.exception;
-
 public class NotImplementedException extends RuntimeException {
 
 	/**
@@ -14,5 +13,6 @@ public class NotImplementedException extends RuntimeException {
 	public NotImplementedException() {
 		super();
 	}
+
 
 }

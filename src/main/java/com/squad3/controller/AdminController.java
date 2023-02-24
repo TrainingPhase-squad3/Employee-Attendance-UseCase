@@ -1,5 +1,6 @@
 package com.squad3.controller;
 
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -14,11 +15,15 @@ import com.squad3.response.SwipingResponse;
 import com.squad3.service.impl.EmployeeAttendanceServiceImpl;
 import com.squad3.service.impl.EmployeeServiceImpl;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
 	@Autowired
 	EmployeeAttendanceServiceImpl attendanceServiceImpl;
+
 
 	@Autowired
 	EmployeeServiceImpl employeeServiceImpl;
@@ -30,4 +35,5 @@ public class AdminController {
 
 	}
 
+	
 }

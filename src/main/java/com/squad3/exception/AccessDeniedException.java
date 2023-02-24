@@ -1,6 +1,7 @@
 package com.squad3.exception;
 
 public class AccessDeniedException extends RuntimeException {
+
 	/**
 	 * 
 	 */
@@ -13,5 +14,6 @@ public class AccessDeniedException extends RuntimeException {
 	public AccessDeniedException() {
 		super();
 	}
+
 
 }
