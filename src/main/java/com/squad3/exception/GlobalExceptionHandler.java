@@ -28,9 +28,27 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		});
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 	}
+
+	
+	@ExceptionHandler(value = InvalidEmployeeException.class)
+	public ResponseEntity<Object> invalidEmployeeException(InvalidEmployeeException ex, WebRequest req) {
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+				.body(new ResponseStructure(ex.getMessage(), HttpStatus.BAD_REQUEST));
+
+	}
+
+	@ExceptionHandler(value = NullPointerException.class)
+	public ResponseEntity<Object> nullPointerException(NullPointerException ex, WebRequest req) {
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+				.body(new ResponseStructure("Invalid employee", HttpStatus.NOT_FOUND));
+}
 	@ExceptionHandler(EmployeeNotFoundException.class)
 	public ResponseEntity<ApiResponse> handleResourceNotFoundException(EmployeeNotFoundException exception) {
 	
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(exception.getMessage(),HttpStatus.NOT_FOUND));		
+
 	}
+
 }
