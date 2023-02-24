@@ -1,5 +1,6 @@
 package com.squad3.exception;
 
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,18 +30,32 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 	}
 
-	
-	@ExceptionHandler(value = InvalidEmployeeException.class)
-	public ResponseEntity<Object> invalidEmployeeException(InvalidEmployeeException ex, WebRequest req) {
 
+	@ExceptionHandler(EmployeeNotFoundException.class)
+	public ResponseEntity<ApiResponse> handleResourceNotFoundException(EmployeeNotFoundException exception) {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body(new ResponseStructure(ex.getMessage(), HttpStatus.BAD_REQUEST));
+				.body(new ApiResponse(exception.getMessage(), HttpStatus.NOT_FOUND));
+
+	}
+	
+	@ExceptionHandler(NotImplementedException.class)
+	public ResponseEntity<ApiResponse> handleAttendenceNotFoundException(NotImplementedException exception) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+				.body(new ApiResponse(exception.getMessage(), HttpStatus.NOT_IMPLEMENTED));
 
 	}
 
-	@ExceptionHandler(value = NullPointerException.class)
-	public ResponseEntity<Object> nullPointerException(NullPointerException ex, WebRequest req) {
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<ApiResponse> handleAccessDeniedException(AccessDeniedException exception) {
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+				.body(new ApiResponse(exception.getMessage(), HttpStatus.UNAUTHORIZED));
 
+	}
+
+	@ExceptionHandler(DateTimeParseException.class)
+	public ResponseEntity<ApiResponse> handleDateTimeParseException(DateTimeParseException exception) {
+		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(
+				new ApiResponse("Text could not be parsed provide in format:dd-MM-yyyy", HttpStatus.NOT_ACCEPTABLE));
 		return ResponseEntity.status(HttpStatus.NOT_FOUND)
 				.body(new ResponseStructure("Invalid employee", HttpStatus.NOT_FOUND));
 }
@@ -48,6 +63,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<ApiResponse> handleResourceNotFoundException(EmployeeNotFoundException exception) {
 	
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(exception.getMessage(),HttpStatus.NOT_FOUND));		
+
 
 	}
 

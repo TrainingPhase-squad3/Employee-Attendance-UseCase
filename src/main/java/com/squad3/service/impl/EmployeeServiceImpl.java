@@ -6,6 +6,7 @@ import com.squad3.service.EmployeeService;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
@@ -60,8 +61,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		} else {
 			throw new InvalidEmployeeException("Enter valid credential");
-		}
-
 	}
 	
+}
 }
