@@ -16,14 +16,7 @@ import com.squad3.service.EmployeeAttendanceService;
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
-	@Autowired
-	private EmployeeAttendanceService employeeAttendanceService;
 	
-
-	@PostMapping("/employee-attendance")
-	public ResponseEntity<EmployeeAttendance> swipping(@Valid @RequestParam long employeeId) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(employeeAttendanceService.swipping(employeeId));
-	}
 
 	
 
