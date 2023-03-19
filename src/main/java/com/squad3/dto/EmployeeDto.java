@@ -16,7 +16,7 @@ import lombok.Setter;
 public class EmployeeDto {
 	@NotBlank(message = "Please Enter Name")
 	private String name;
-	@Pattern(regexp = "^(?:Admin|Employee)$",message = "Please Enter Valid Role")
+	@Pattern(regexp = "^[A-Z_]+$",message = "Please Enter Valid Role in uppercase")
 	private String role;
 	@Email
 	@NotBlank

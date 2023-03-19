@@ -2,11 +2,13 @@ package com.squad3.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.squad3.dto.EmployeeDto;
+import com.squad3.dto.Role;
 import com.squad3.entity.Employee;
 import com.squad3.exception.EmployeeAlreadyExists;
 import com.squad3.exception.InvalidEmployeeException;
@@ -25,14 +27,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Response save(EmployeeDto employeedto) throws EmployeeAlreadyExists {
 		Employee employee = employeeRepository.findByEmail(employeedto.getEmail());
 		if (employee != null) {
-			if (employeedto.getPassword().equals(employee.getPassword()))
+			if (employeedto.getPassword().equals(employee.getPassword())) {
 				return new Response("Employee Already Registered");
+			}
 			return new Response("Incorrect  password");
 
 		}
-		
-		employeeRepository.save(Employee.builder().employeeId((long) (Math.random() * Math.pow(6, 7))).name(employeedto.getName()).role(employeedto.getRole())
-				.password(employeedto.getPassword()).email(employeedto.getEmail()).build());
+		Employee employee2=new Employee();
+		BeanUtils.copyProperties(employeedto, employee2);
+		employee2.setEmployeeId((long) (Math.random() * Math.pow(6, 7)));
+		employee2.setRole(Role.valueOf(employeedto.getRole()));
+		employeeRepository.save(employee2);
 		return new Response("Employee Registered successfully");
 	}
 
@@ -40,7 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public ResponseStructure adminLogIn(String email, String password) {
 		ResponseStructure structure = new ResponseStructure();
 		Employee employee = employeeRepository.findByEmail(email);
-		if (employee != null && employee.getRole().equals("Admin")) {
+		if (employee != null && employee.getRole().equals(Role.ADMIN)) {
 			if (employee.isStatus()) {
 				logger.info("Employee already Logged In");
 				structure.setMessage(" admin already Logged In ");

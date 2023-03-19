@@ -8,6 +8,8 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.squad3.dto.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +25,7 @@ public class Employee {
 	@Id
 	private long employeeId;
 	private String name;
-	private String role;
+	private Role role;
 	@Column(unique = true)
 	private String email;
 	private String password;

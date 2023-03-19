@@ -2,7 +2,9 @@ package com.squad3.service.impl;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.squad3.dto.Role;
 import com.squad3.entity.Employee;
 import com.squad3.entity.EmployeeAttendance;
 import com.squad3.exception.AccessDeniedException;
@@ -24,6 +27,7 @@ import com.squad3.exception.EmployeeNotFoundException;
 import com.squad3.exception.NotImplementedException;
 import com.squad3.repository.EmployeeAttendanceRepository;
 import com.squad3.repository.EmployeeRepository;
+import com.squad3.response.SwipingResponse;
 
 
 @ExtendWith(SpringExtension.class)
@@ -76,7 +80,7 @@ class EmployeeAttendanceServiceImplTest {
 		employee.setDoj(LocalDate.now());
 		employee.setEmail("man@gmail.com");
 		employee.setPassword("Man734567@");
-		employee.setRole("Admin");
+		employee.setRole(Role.ADMIN);
 		employee.setStatus(true);
 
 		Employee employee1 = new Employee();
@@ -85,7 +89,7 @@ class EmployeeAttendanceServiceImplTest {
 		employee1.setDoj(LocalDate.now());
 		employee1.setEmail("san@gmail.com");
 		employee1.setPassword("San734567@");
-		employee1.setRole("Others");
+		employee1.setRole(Role.DEVELOPER);
 		employee1.setStatus(false);
 
 		String fromDate = "2021-08-12";
@@ -114,7 +118,7 @@ class EmployeeAttendanceServiceImplTest {
 
 		Mockito.when(employeeAttendanceRepository.findByEmployee_EmployeeIdAndDateBetween(employee1.getEmployeeId(),
 				LocalDate.parse(fromDate), LocalDate.parse(toDate))).thenReturn(list);
-		List<EmployeeAttendance> resultList = employeeAttendanceServiceImpl
+		List<SwipingResponse> resultList = employeeAttendanceServiceImpl
 				.employeeAttendenceHistory(employee.getEmployeeId(), employee1.getEmployeeId(), fromDate, toDate);
 		assertEquals(list, resultList);
 
@@ -141,7 +145,7 @@ class EmployeeAttendanceServiceImplTest {
 		employee.setDoj(LocalDate.now());
 		employee.setEmail("man@gmail.com");
 		employee.setPassword("Man734567@");
-		employee.setRole("Admin");
+		employee.setRole(Role.ADMIN);
 		employee.setStatus(true);
 
 		String fromDate = "2021-08-12";
@@ -165,7 +169,7 @@ class EmployeeAttendanceServiceImplTest {
 		employee.setDoj(LocalDate.now());
 		employee.setEmail("man@gmail.com");
 		employee.setPassword("Man734567@");
-		employee.setRole("Others");
+		employee.setRole(Role.valueOf(anyString()));
 
 		long empId = 123456;
 		String fromDate = "2021-08-12";
@@ -185,7 +189,7 @@ class EmployeeAttendanceServiceImplTest {
 		employee.setDoj(LocalDate.now());
 		employee.setEmail("man@gmail.com");
 		employee.setPassword("Man734567@");
-		employee.setRole("Admin");
+		employee.setRole(Role.ADMIN);
 		employee.setStatus(false);
 
 		long empId = 123456;
@@ -206,7 +210,7 @@ class EmployeeAttendanceServiceImplTest {
 		employee.setDoj(LocalDate.now());
 		employee.setEmail("man@gmail.com");
 		employee.setPassword("Man734567@");
-		employee.setRole("Admin");
+		employee.setRole(Role.ADMIN);
 		employee.setStatus(true);
 
 		Employee employee1 = new Employee();
@@ -215,7 +219,7 @@ class EmployeeAttendanceServiceImplTest {
 		employee1.setDoj(LocalDate.now());
 		employee1.setEmail("san@gmail.com");
 		employee1.setPassword("San734567@");
-		employee1.setRole("Others");
+		employee1.setRole(Role.valueOf(anyString()));
 		employee1.setStatus(false);
 
 		String fromDate = "2021-08-12";
